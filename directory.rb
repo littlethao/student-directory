@@ -28,6 +28,26 @@ def print(students)
 	end
 end	
 
+# Modify your program to only print the students whose name begins with a specific letter.
+def print_name_starting(students)
+	puts "Enter the first letter of student name you are looking for."
+	letter = gets.chomp
+	students.each_with_index do |student, index| 
+		if student[:name].start_with?(letter) == true
+			puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+		end
+	end
+end
+
+# Modify your program to only print the students whose name is shorter than 12 characters.
+def print_name_shorter_12(students)
+	students.each_with_index do |student, index| 
+		if student[:name].length < 12
+			puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+		end
+	end
+end
+
 def print_footer(students)
 	puts "Overall, we have #{students.count} great students"
 end
@@ -37,3 +57,5 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
+print_name_starting(students)
+print_name_shorter_12(students)
