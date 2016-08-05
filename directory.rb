@@ -22,11 +22,15 @@ def print_header
 	puts "-------------"
 end
 
+# Rewrite the each() method that prints all students using while or until control flow methods
 def print(students)
-	students.each_with_index do |student, index|
-		puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+	index = 0
+	while index < students.size 
+		puts "#{index+1}. #{students[index][:name]} (#{students[index][:cohort]} cohort)"
+		
+		index = index + 1 
 	end
-end	
+end
 
 # Modify your program to only print the students whose name begins with a specific letter.
 def print_name_starting(students)
