@@ -18,17 +18,17 @@ def input_students
 	puts "To finish, just hit return twice"
 	# create an empty array
 	students = []
-	name = gets.chomp
-	cohort = gets.chomp
+	name = gets.gsub!(/[\r\n]/, "")
+	cohort = gets.gsub!(/[\r\n]/, "")
 		
 	puts "Please add the student's hobbies."
-	hobbies = gets.chomp
+	hobbies = gets.gsub!(/[\r\n]/, "")
 	
 	puts "What is the student's country of birth?"
-	country_of_birth = gets.chomp
+	country_of_birth = gets.gsub!(/[\r\n]/, "")
 	
 	puts "Please input the student's height."
-	height = gets.chomp
+	height = gets.gsub!(/[\r\n]/, "")
 	
 	add_more_students = true
 	# while the name is not empty, repeat this code
