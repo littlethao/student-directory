@@ -38,7 +38,11 @@ def input_students
 			cohort = "November"
 		end
 		students << {name: name, hobbies: hobbies, birthplace: country_of_birth, height: height, cohort: cohort.to_sym}
-		puts "Now we have #{students.count} students"
+		if students.count == 1
+			puts "Now we have #{students.count} student."
+		else
+			puts "Now we have #{students.count} students"
+		end
 		
 		puts "Would you like to add more students?"
 		response = gets.chomp
@@ -105,14 +109,18 @@ def print_name_shorter_12(students)
 end
 
 def print_footer(students)
-	puts "Overall, we have #{students.count} great students"
+	if students.count == 1
+		puts "Overall, we have #{students.count} great student."
+	else
+		puts "Overall, we have #{students.count} great student."
+	end
 end
 
 students = input_students
 # nothing happens until we call the methods
 print_header
-# print(students)
+print(students)
 print_footer(students)
 # print_name_starting(students)
 # print_name_shorter_12(students)
-print_by_cohort(students, "November")
+# print_by_cohort(students, "November")
