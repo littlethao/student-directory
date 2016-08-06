@@ -1,10 +1,26 @@
+@cohort_months = {
+	1 => "January",
+	2 => "February",
+	3 => "March",
+	4 => "April",
+	5 => "May",
+	6 => "June",
+	7 => "July",
+	8 => "August",
+	9 => "September",
+	10 => "October",
+	11 => "November",
+	12 => "December"
+}
+
 def input_students
-	puts "Please enter the names of the students"
+	puts "Please enter the names of the students and the cohort!"
 	puts "To finish, just hit return twice"
 	# create an empty array
 	students = []
 	name = gets.chomp
-	
+	cohort = gets.chomp
+		
 	puts "Please add the student's hobbies."
 	hobbies = gets.chomp
 	
@@ -14,18 +30,33 @@ def input_students
 	puts "Please input the student's height."
 	height = gets.chomp
 	
+	add_more_students = true
 	# while the name is not empty, repeat this code
-	while !name.empty? do
-		# add the student hash to the array
-		students << {name: name, hobbies: hobbies, birthplace: country_of_birth, height: height, cohort: :november}
+	while add_more_students do
+		cohort = @cohort_months[cohort.to_i]
+		if !cohort
+			cohort = "November"
+		end
+		students << {name: name, hobbies: hobbies, birthplace: country_of_birth, height: height, cohort: cohort.to_sym}
 		puts "Now we have #{students.count} students"
-		# get another name from the user
-		name = gets.chomp
-		hobbies = gets.chomp
-		country_of_birth = gets.chomp
-		height = gets.chomp
+		
+		puts "Would you like to add more students?"
+		response = gets.chomp
+		if response.downcase == "yes" || response.downcase == "y"
+			puts "Please enter the names of the students and the cohort!"
+			puts "To finish, just hit return twice"
+			name = gets.chomp
+			cohort = gets.chomp
+			puts "Please add the student's hobbies."
+			hobbies = gets.chomp
+			puts "What is the student's country of birth?"
+			country_of_birth = gets.chomp
+			puts "Please input the student's height."
+			height = gets.chomp
+		else
+			add_more_students = false
+		end
 	end
-	# return the array of students
 	students
 end
 
@@ -41,6 +72,15 @@ def print(students)
 		puts "#{index+1}. #{students[index][:name]}, #{students[index][:hobbies]}, #{students[index][:birthplace]}, #{students[index][:height]} (#{students[index][:cohort]} cohort)"
 		
 		index = index + 1 
+	end
+end
+
+# Only print the students from a particular cohort.
+def print_by_cohort(students, student_class)
+	students.each_with_index do |student, index|
+		if student[:cohort].to_s.downcase == student_class.downcase
+			puts "#{index+1}. #{students[index][:name]}, #{students[index][:hobbies]}, #{students[index][:birthplace]}, #{students[index][:height]} (#{students[index][:cohort]} cohort)"
+		end
 	end
 end
 
@@ -71,7 +111,8 @@ end
 students = input_students
 # nothing happens until we call the methods
 print_header
-print(students)
+# print(students)
 print_footer(students)
 # print_name_starting(students)
 # print_name_shorter_12(students)
+print_by_cohort(students, "November")
