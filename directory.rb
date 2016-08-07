@@ -14,49 +14,40 @@
 }
 
 def input_students
-	puts "Please enter the names of the students and the cohort!"
-	puts "To finish, just hit return twice"
 	# create an empty array
 	students = []
-	name = gets.gsub!(/[\r\n]/, "")
-	cohort = gets.gsub!(/[\r\n]/, "")
-		
-	puts "Please add the student's hobbies."
-	hobbies = gets.gsub!(/[\r\n]/, "")
-	
-	puts "What is the student's country of birth?"
-	country_of_birth = gets.gsub!(/[\r\n]/, "")
-	
-	puts "Please input the student's height."
-	height = gets.gsub!(/[\r\n]/, "")
 	
 	add_more_students = true
 	# while the name is not empty, repeat this code
 	while add_more_students do
+		puts "Please enter the names of the students and the cohort!"
+		puts "To finish, just hit return twice"
+		name = gets.gsub!(/[\r\n]/, "")
+		cohort = gets.gsub!(/[\r\n]/, "")
+	
 		cohort = @cohort_months[cohort.to_i]
 		if !cohort
 			cohort = "November"
 		end
+	
+		puts "Please add the student's hobbies."
+		hobbies = gets.gsub!(/[\r\n]/, "")
+		puts "What is the student's country of birth?"
+		country_of_birth = gets.gsub!(/[\r\n]/, "")
+		puts "Please input the student's height."
+		height = gets.gsub!(/[\r\n]/, "")
+		
 		students << {name: name, hobbies: hobbies, birthplace: country_of_birth, height: height, cohort: cohort.to_sym}
 		if students.count == 1
 			puts "Now we have #{students.count} student."
 		else
 			puts "Now we have #{students.count} students"
 		end
-		
 		puts "Would you like to add more students?"
 		response = gets.chomp
+		
 		if response.downcase == "yes" || response.downcase == "y"
-			puts "Please enter the names of the students and the cohort!"
-			puts "To finish, just hit return twice"
-			name = gets.chomp
-			cohort = gets.chomp
-			puts "Please add the student's hobbies."
-			hobbies = gets.chomp
-			puts "What is the student's country of birth?"
-			country_of_birth = gets.chomp
-			puts "Please input the student's height."
-			height = gets.chomp
+			#do nothing
 		else
 			add_more_students = false
 		end
@@ -71,11 +62,15 @@ end
 
 # Rewrite the each() method that prints all students using while or until control flow methods
 def print(students)
-	index = 0
-	while index < students.size 
-		puts "#{index+1}. #{students[index][:name]}, #{students[index][:hobbies]}, #{students[index][:birthplace]}, #{students[index][:height]} (#{students[index][:cohort]} cohort)"
+	if !students.empty?
+		if students.size >= 1 && !students[0][:name].empty? && !students[0][:hobbies].empty? && !students[0][:birthplace].empty? && !students[0][:height].empty?
+			index = 0
+			while index < students.size 
+			puts "#{index+1}. #{students[index][:name]}, #{students[index][:hobbies]}, #{students[index][:birthplace]}, #{students[index][:height]} (#{students[index][:cohort]} cohort)"
 		
-		index = index + 1 
+			index = index + 1 
+			end
+		end
 	end
 end
 
