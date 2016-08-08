@@ -22,8 +22,8 @@ def input_students
 	while add_more_students do
 		puts "Please enter the names of the students and the cohort!"
 		puts "To finish, just hit return twice"
-		name = gets.gsub!(/[\r\n]/, "")
-		cohort = gets.gsub!(/[\r\n]/, "")
+		name = gets.chomp
+		cohort = gets.chomp
 	
 		cohort = @cohort_months[cohort.to_i]
 		if !cohort
@@ -31,11 +31,11 @@ def input_students
 		end
 	
 		puts "Please add the student's hobbies."
-		hobbies = gets.gsub!(/[\r\n]/, "")
+		hobbies = gets.chomp
 		puts "What is the student's country of birth?"
-		country_of_birth = gets.gsub!(/[\r\n]/, "")
+		country_of_birth = gets.chomp
 		puts "Please input the student's height."
-		height = gets.gsub!(/[\r\n]/, "")
+		height = gets.chomp
 		
 		students << {name: name, hobbies: hobbies, birthplace: country_of_birth, height: height, cohort: cohort.to_sym}
 		if students.count == 1
@@ -111,11 +111,29 @@ def print_footer(students)
 	end
 end
 
-students = input_students
-# nothing happens until we call the methods
-print_header
-print(students)
-print_footer(students)
-# print_name_starting(students)
-# print_name_shorter_12(students)
-# print_by_cohort(students, "November")
+def interactive_menu
+	students = []
+	loop do
+		# 1. print the menu and ask the use what to do
+		puts "1. Input the students"
+		puts "2. Show the students"
+		puts "9. Exit"
+		# 2. read the input and save it into a variable
+		selection = gets.chomp
+		# 3. do what the user has asked
+		case selection
+		when "1"
+			students = input_students
+		when "2"
+			print_header
+			print(students)
+			print_footer(students)
+		when "9"
+		exit # this will cause the program to terminate
+		else
+			puts "I don't know what you meant, try again."
+		end
+	end
+end
+
+students = interactive_menu
